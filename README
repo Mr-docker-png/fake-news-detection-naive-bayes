@@ -1,0 +1,286 @@
+# Fake News Detection using Multinomial Naive Bayes
+
+## Project Overview
+
+This Machine Learning and Natural Language Processing (NLP) project classifies news articles as FAKE or TRUE using text analysis.
+
+The project uses CountVectorizer to convert text into numerical features and Multinomial Naive Bayes to classify news articles based on word frequencies.
+
+The model achieved an accuracy of 95.28%, demonstrating the effectiveness of Naive Bayes for text classification tasks.
+
+---
+
+## Business Problem
+
+Fake news spreads misinformation and can influence public opinion, decision-making, and social trust.
+
+The goal of this project is to automatically identify whether a news article is:
+
+* FAKE
+* TRUE
+
+using machine learning and natural language processing techniques.
+
+---
+
+## Dataset Information
+
+### Dataset
+
+Fake and Real News Dataset
+
+### Total Records
+
+44,898 News Articles
+
+### Features
+
+* title
+* text
+* subject
+* date
+
+### Target Variable
+
+```text
+label
+```
+
+Classes:
+
+```text
+FAKE
+TRUE
+```
+
+### Class Distribution
+
+```text
+FAKE = 23,481
+TRUE = 21,417
+```
+
+The dataset is well balanced, making it suitable for classification tasks.
+
+---
+
+## Data Preprocessing
+
+### Missing Values
+
+No missing values were found.
+
+### Feature Engineering
+
+The title and article text were combined into a single feature:
+
+```python
+df["content"] = df["title"] + " " + df["text"]
+```
+
+This allows the model to learn from both headlines and article content.
+
+### Removed Columns
+
+* date
+
+Reason:
+
+The project focuses on text classification and publication dates were not required for prediction.
+
+---
+
+## Text Vectorization
+
+### CountVectorizer
+
+Machine learning models cannot understand raw text.
+
+CountVectorizer converts words into numerical features.
+
+Example:
+
+Article:
+
+```text
+cat dog
+```
+
+becomes:
+
+| cat | dog | fish |
+| --- | --- | ---- |
+| 1   | 1   | 0    |
+
+After vectorization:
+
+```text
+44,898 Articles
+122,513 Unique Words
+```
+
+Shape:
+
+```text
+(44898, 122513)
+```
+
+---
+
+## Machine Learning Workflow
+
+1. Load Dataset
+2. Create Target Labels
+3. Merge Fake and True News Datasets
+4. Shuffle Dataset
+5. Text Preprocessing
+6. CountVectorizer
+7. Train-Test Split
+8. Train Multinomial Naive Bayes
+9. Generate Predictions
+10. Evaluate Performance
+
+---
+
+## Model Used
+
+### Multinomial Naive Bayes
+
+Multinomial Naive Bayes is one of the most effective algorithms for text classification because it works with word frequency data.
+
+Reasons for choosing MultinomialNB:
+
+* Fast Training
+* Excellent for NLP Tasks
+* Handles High-Dimensional Data
+* Works Well with CountVectorizer Features
+
+---
+
+## Model Performance
+
+### Accuracy
+
+```text
+95.28%
+```
+
+### Confusion Matrix
+
+```text
+[[4479  231]
+ [ 193 4077]]
+```
+
+### Classification Report
+
+| Class | Precision | Recall | F1 Score |
+| ----- | --------- | ------ | -------- |
+| FAKE  | 0.96      | 0.95   | 0.95     |
+| TRUE  | 0.95      | 0.95   | 0.95     |
+
+---
+
+## Results Interpretation
+
+The model correctly classifies the vast majority of news articles.
+
+### FAKE News
+
+Correctly Identified:
+
+```text
+4479 / 4710
+```
+
+### TRUE News
+
+Correctly Identified:
+
+```text
+4077 / 4270
+```
+
+The model achieved balanced performance across both classes, with strong precision and recall scores.
+
+---
+
+## User Prediction Example
+
+```python
+news = input("Enter a news article: ")
+
+news_vector = vectorizer.transform([news])
+
+prediction = model.predict(news_vector)
+
+print("Prediction:", prediction[0])
+```
+
+Example Output:
+
+```text
+Prediction: FAKE
+```
+
+or
+
+```text
+Prediction: TRUE
+```
+
+---
+
+## Technologies Used
+
+* Python
+* Pandas
+* NumPy
+* Scikit-Learn
+* CountVectorizer
+* Multinomial Naive Bayes
+* Jupyter Notebook
+
+---
+
+## Key Learnings
+
+Through this project, I learned:
+
+* Natural Language Processing (NLP)
+* Text Vectorization
+* CountVectorizer
+* Multinomial Naive Bayes
+* Binary Classification
+* Confusion Matrix Analysis
+* Precision, Recall, and F1 Score
+* Text-Based Machine Learning
+
+---
+
+## Future Improvements
+
+* TF-IDF Vectorization
+* N-Grams
+* Lemmatization
+* Stopword Removal
+* Passive Aggressive Classifier
+* Logistic Regression for NLP
+* Deep Learning (LSTM)
+* Streamlit Web Application
+
+---
+
+## Real-World Applications
+
+* Fake News Detection
+* Misinformation Filtering
+* News Verification Systems
+* Social Media Monitoring
+* Content Moderation
+
+---
+
+## Conclusion
+
+This project demonstrates how Natural Language Processing and Multinomial Naive Bayes can be combined to build an effective fake news detection system. The model achieved 95.28% accuracy and strong precision, recall, and F1 scores, making it highly effective at distinguishing between fake and true news articles.
